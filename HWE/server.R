@@ -16,8 +16,25 @@ hwe.m <- melt(hwe,id.vars=c("p","q"))
 pl <- ggplot(hwe.m,aes(x=p,y=value,col=variable))
 pl <- pl + geom_line() + ylab("Aa frequency")
 
+old.input <- list(AA=.5,Aa=.25) #make sure these match what is in ui.R
+
 # Define server logic required to generate and plot a random distribution
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
+    
+    observe({
+      if (input$AA != old.input$AA) {
+        print("AA changed")
+        cat("old: ",old.input$AA,"  new: ",input$AA,"\n")
+      }
+      if (input$Aa != old.input$Aa) {
+        print("Aa changed")
+        cat("old: ",old.input$Aa,"  new: ",input$Aa,"\n")
+      }
+      isolate(old.input$AA <- input$AA)
+      isolate(old.input$Aa <- input$Aa)
+    })
+    
+
   
   output$hwePlot <- renderPlot({
     
