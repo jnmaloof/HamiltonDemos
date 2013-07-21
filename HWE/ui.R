@@ -18,7 +18,13 @@ shinyUI(pageWithSidebar(
                 "Genotype frequency of Aa", 
                 min = 0,
                 max = 1, 
-                value = .250),
+                value = .2500),
+    
+    sliderInput("aa", 
+                "Genotype frequency of aa", 
+                min = 0,
+                max = 1, 
+                value = .2500),
     
     tableOutput("genotypes"),
     tableOutput("alleles"),

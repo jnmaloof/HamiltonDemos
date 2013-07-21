@@ -21,19 +21,44 @@ old.input <- list(AA=.5,Aa=.25) #make sure these match what is in ui.R
 # Define server logic required to generate and plot a random distribution
 shinyServer(function(input, output, session) {
     
-    observe({
-      if (input$AA != old.input$AA) {
-        print("AA changed")
-        cat("old: ",old.input$AA,"  new: ",input$AA,"\n")
+    observe({ #if AA changes, make sure that genotype frequencies sum to 1
+      AA <- input$AA
+      isolate(Aa <-input$Aa) #get the value but don't force excution of this chunk if Aa changes
+      isolate(aa <- input$aa)
+      aa <- 1 - (AA + Aa)
+      if (aa < 0) {
+        aa <- 0
+        Aa <- 1-AA
       }
-      if (input$Aa != old.input$Aa) {
-        print("Aa changed")
-        cat("old: ",old.input$Aa,"  new: ",input$Aa,"\n")
-      }
-      isolate(old.input$AA <- input$AA)
-      isolate(old.input$Aa <- input$Aa)
+      updateSliderInput(session,"Aa",value=Aa)
+      updateSliderInput(session,"aa",value=aa)
     })
     
+    observe({ #if Aa changes, make sure that genotype frequencies sum to 1
+      Aa <- input$Aa
+      isolate(AA <-input$AA)  #get the value but don't force execution when AA changes
+      isolate(aa <- input$aa)
+      aa <- 1 - (AA + Aa)
+      if (aa < 0) {
+        aa <- 0
+        AA <- 1-Aa
+      }
+      updateSliderInput(session,"AA",value=AA)
+      updateSliderInput(session,"aa",value=aa)
+    })
+    
+    observe({ #if aa changes, make sure that genotype frequencies sum to 1
+      aa <- input$aa
+      isolate(AA <-input$AA)  #get the value but don't force execution when AA changes
+      isolate(Aa <- input$Aa)
+      AA <- 1 - (aa + Aa)
+      if (AA < 0) {
+        AA <- 0
+        Aa <- 1-Aa
+      }
+      updateSliderInput(session,"AA",value=AA)
+      updateSliderInput(session,"Aa",value=Aa)
+    })
 
   
   output$hwePlot <- renderPlot({
