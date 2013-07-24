@@ -1,6 +1,6 @@
 library(shiny)
 
-# Define UI for application that plots random distributions 
+# Define UI for application that plots HWE and genotype frequencies
 shinyUI(pageWithSidebar(
   
   # Application title
@@ -32,7 +32,7 @@ shinyUI(pageWithSidebar(
     
   ),
   
-  # Show a plot of the generated distribution
+  # Show a plot of the HWE and the user input population
   mainPanel(
     plotOutput("hwePlot")
   )
