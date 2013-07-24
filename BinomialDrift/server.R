@@ -1,7 +1,6 @@
 # Server side of shiny app to plot binomial genetic drift simulations
 
 library(shiny)
-library(ggplot2)
 
 shinyServer(func=function(input,output){
   
