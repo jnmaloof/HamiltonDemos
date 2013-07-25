@@ -11,7 +11,7 @@ shinyUI(pageWithSidebar(
     
     sliderInput("initAlleles","Number of A alleles in first generation",value=5,min=0,max=200),
     
-    sliderInput("generations","Generations to simulate",value=5,min=2,max=50),
+    sliderInput("generations","Generations to simulate",value=5,min=2,max=500),
     
     sliderInput("theta","left-right viewing angle",value=80,min=0,max=360),
     
