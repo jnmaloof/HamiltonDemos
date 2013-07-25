@@ -20,7 +20,8 @@ shinyUI(pageWithSidebar(
   
   mainPanel(
     tabsetPanel(
-      tabPanel("Plot", plotOutput("resultsPlot",height="100%")),
+      tabPanel("3D Plot", plotOutput("resultsPlot",height="100%")),
+      tabPanel("Bar Plots",plotOutput("barPlot",height="100%")),
       tabPanel("Table", tableOutput("resultsTable"))
     )  )
 ))

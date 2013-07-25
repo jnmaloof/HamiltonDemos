@@ -3,6 +3,8 @@
 #July26, 2013
 
 library(shiny)
+library(ggplot2)
+library(reshape)
 
 shinyServer(function(input,output,session) {
   
@@ -41,6 +43,15 @@ shinyServer(function(input,output,session) {
   output$resultsPlot <- renderPlot({
     print(persp(results(),theta=input$theta,phi=input$phi,xlab="generation",ylab="allele count",zlab="proportion",col="skyblue"))
   },height=600,width=600)
+  
+  output$barPlot <- renderPlot({
+    plotData <- melt(results,id.vars=row.names)
+    pl <- ggplot(plotData,aes(x=allele.freq,y=value))
+    pl <- pl + ylab("proportion") + xlab("number of alleles")
+    pl <- pl + geom_bar(stat="identity") + facet_wrap(~ generation,ncol=5)
+    print(pl)
+  },height=800,width=800)
+    
   
   output$resultsTable <- renderTable({
     round(results(),3)
