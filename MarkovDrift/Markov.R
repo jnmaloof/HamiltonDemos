@@ -32,3 +32,5 @@ for (g in 2:generations) {
 }
 
 round(results,3)
+
+persp(results,theta=70,phi=10,xlab="generation",ylab="allele count",zlab="proportion",col="skyblue")
