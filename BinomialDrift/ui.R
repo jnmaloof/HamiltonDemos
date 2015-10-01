@@ -8,7 +8,7 @@ library(shiny)
 shinyUI(pageWithSidebar(
   
   # Application title
-  headerPanel("Genetic Drift--Bionomial Model"),
+  headerPanel("Genetic Drift--Binomial Model"),
   
   # Sidebar with a slider input for number of observations
   sidebarPanel(
